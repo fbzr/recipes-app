@@ -4,7 +4,6 @@ const typeDefs = gql`
     type Ingredient {
         id: ID!
         name: String!
-        brand: String
     }
 
     type Recipe {

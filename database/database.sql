@@ -12,8 +12,16 @@ CREATE TABLE ingredients (
 
 CREATE TABLE instructions (
     id UUID PRIMARY KEY,
-    recipe_id UUID REFERENCES recipes(id),
+    recipe_id UUID NOT NULL REFERENCES recipes(id),
     description text,
     step integer,
     UNIQUE (id, recipe_id)
+);
+
+CREATE TABLE recipe_ingredients (
+    id UUID PRIMARY KEY,
+    recipe_id UUID NOT NULL REFERENCES recipes(id),
+    ingredient_id UUID NOT NULL REFERENCES ingredients(id),
+    quantity VARCHAR(255),
+    UNIQUE (recipe_id, ingredient_id)
 );

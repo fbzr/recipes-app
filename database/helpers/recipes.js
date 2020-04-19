@@ -2,8 +2,19 @@ const db = require('../config');
 const uuid = require('uuid');
 
 const getAll = async () => {
-    const { rows } = await db.query('SELECT * FROM recipes');
-    return rows;
+    const recipes = await db.query('SELECT * FROM recipes').rows;
+    const result = [];
+    recipes.forEach(recipe => {
+        const ingredients = await db.query('SELECT i.id, i.name FROM ingredients as i JOIN (SELECT ingredient_id, recipe_id FROM recipe_ingredients WHERE recipe_id = $1) AS ri ON ri.ingredient_id = i.id', [recipe.id]).rows;
+        const instructions = await db.query('SELECT * FROM instructions WHERE recipe_id = $1', [recipe.id]).rows;
+        
+        result.push({
+            ...recipe,
+            ingredients,
+            instructions
+        });
+    });
+    return result;
 }
 
 const getById = id => {
