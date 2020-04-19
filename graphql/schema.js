@@ -14,6 +14,12 @@ const typeDefs = gql`
         instructions: [String]!
     }
 
+    type Instruction {
+        id: ID!
+        description: String!
+        step: Integer!
+    }
+
     # queries
     type Query {
         recipes: [Recipe]!

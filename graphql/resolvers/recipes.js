@@ -4,7 +4,7 @@ module.exports = {
     Query: {
         recipes: async () => {
             try {
-                const recipes = await recipesDb.getAll();   
+                const recipes = await recipesDb.getAll(); 
                 return recipes;
             } catch (error) {
                 throw new Error('There was an error accessing the recipes from the database');
