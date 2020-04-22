@@ -6,7 +6,6 @@ module.exports = {
         addIngredientToRecipe: async (_, { name, recipeId }) => {
             try {
                 let ingredient = await Ingredients.getByName(name);
-                const recipe = await Recipes.getById(recipeId);
                 
                 if (!ingredient) {
                     ingredient = await Ingredients.add(name);
