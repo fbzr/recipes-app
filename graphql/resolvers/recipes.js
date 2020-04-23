@@ -44,7 +44,15 @@ module.exports = {
         addRecipe: async (_, { name }) => {
             try {
                 const recipe = await Recipes.add(name);
-                return recipe;
+
+                const ingredients = await Recipes.getIngredients(recipe.id);
+                const instructions = await Recipes.getInstructions(recipe.id);
+
+                return {
+                    ...recipe,
+                    ingredients,
+                    instructions
+                };
             } catch (error) {
                 throw new Error('There was an error adding the recipe to the database');
             }
