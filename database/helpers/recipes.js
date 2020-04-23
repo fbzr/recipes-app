@@ -13,9 +13,7 @@ const getById = async id => {
 
 const add = async name => {
     const id = uuid.v4();
-    
     const newRecipe = await db.query('INSERT INTO recipes (id, name) VALUES ($1, $2) RETURNING *', [id, name]);
-
     return newRecipe.rows[0];
 }
 
@@ -30,13 +28,8 @@ const hasIngredient = async (recipe_id, ingredient_id) => {
 }
 
 const getInstructions = async recipe_id => {
-    try {
-        const instructions = await db.query('SELECT * FROM instructions WHERE recipe_id = $1', [recipe_id]);
-        return instructions.rows;
-    } catch(error) {
-
-        console.log(error);
-    }
+    const instructions = await db.query('SELECT * FROM instructions WHERE recipe_id = $1', [recipe_id]);
+    return instructions.rows;
 }
 
 module.exports = {
