@@ -1,8 +1,15 @@
 import React from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+// Page Components
+import Home from './pages/Home';
 
-function App() {
+const App = () => {
   return (
-    <div>app</div>
+    <Router>
+      <Route exact path='/'>
+        <Home />
+      </Route>
+    </Router>
   );
 }
 
