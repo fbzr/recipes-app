@@ -42,11 +42,22 @@ module.exports = {
     },
     Mutation: {
         addRecipe: async (_, { name }) => {
+            if (!name) {
+                throw new Error('Name is required');
+            }
+
             try {
                 const recipe = await Recipes.add(name);
-                return recipe;
-            } catch (error) {
-                throw new Error('There was an error adding the recipe to the database');
+                const ingredients = await Recipes.getIngredients(recipe.id);
+                const instructions = await Recipes.getInstructions(recipe.id);
+
+                return {
+                    ...recipe,
+                    ingredients,
+                    instructions
+                };
+            } catch(err) {
+                throw new Error('There is a recipe with the same name in out database already. Recipe name has to be unique.');
             }
         }
     }

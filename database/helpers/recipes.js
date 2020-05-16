@@ -27,10 +27,16 @@ const hasIngredient = async (recipe_id, ingredient_id) => {
     return result.rows.length > 0;
 }
 
+const getInstructions = async recipe_id => {
+    const instructions = await db.query('SELECT * FROM instructions WHERE recipe_id = $1', [recipe_id]);
+    return instructions.rows;
+}
+
 module.exports = {
     getAll,
     getById,
     add,
     getIngredients,
-    hasIngredient
+    hasIngredient,
+    getInstructions
 }
