@@ -7,11 +7,9 @@ import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClient from './ApolloClient';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ApolloProvider client={apolloClient}>
-      <App />
-    </ApolloProvider>
-  </React.StrictMode>,
+  <ApolloProvider client={apolloClient}>
+    <App />
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
